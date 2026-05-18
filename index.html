@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Project 2: Demand Forecasting & Inventory Optimisation | S. Kumar</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Inter,sans-serif;background:#f8fafc;color:#1e293b;padding:20px}
+.header{background:#052e16;color:#f8fafc;padding:20px 24px;border-radius:12px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:18px;font-weight:600}.header p{font-size:12px;color:#86efac;margin-top:3px}
+.badge{background:rgba(134,239,172,0.15);color:#86efac;padding:4px 12px;border-radius:100px;font-size:11px;border:1px solid rgba(134,239,172,0.3)}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px}
+.kpi .label{font-size:11px;color:#64748b;font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
+.kpi .val{font-size:28px;font-weight:600;margin:6px 0 2px;line-height:1}
+.kpi .note{font-size:11px;color:#64748b}
+.grid-12{display:grid;grid-template-columns:1.6fr 1fr;gap:12px;margin-bottom:12px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px}
+.card-title{font-size:11px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px}
+.acc{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;margin-bottom:12px;font-size:12px;color:#16a34a}
+.metric-box{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:8px;margin-bottom:6px;border:1px solid transparent}
+.footer{text-align:center;padding:16px;color:#94a3b8;font-size:11px;margin-top:8px}
+</style></head><body>
+<div class="header">
+  <div><h1>Demand Forecasting · Inventory Optimisation</h1><p>Retail · 50 SKUs · 7,850 records · 3 years weekly data · A/B tested 95% CI · SQL runtime −85%</p></div>
+  <span class="badge">S. Kumar · Data Analyst · Project 2</span>
+</div>
+<div class="kpi-row">
+  <div class="kpi"><div class="label">Total revenue</div><div class="val" style="color:#16a34a">&#8377;513.5M</div><div class="note">3-year cumulative</div></div>
+  <div class="kpi"><div class="label">Forecast accuracy</div><div class="val" style="color:#2563eb">95%</div><div class="note">Time-series model</div></div>
+  <div class="kpi"><div class="label">Overstock write-offs</div><div class="val" style="color:#dc2626">−18%</div><div class="note">Quarter-on-quarter</div></div>
+  <div class="kpi"><div class="label">SQL runtime</div><div class="val" style="color:#d97706">−85%</div><div class="note">Query optimisation</div></div>
+</div>
+<div class="grid-12">
+  <div class="card">
+    <div class="card-title">Monthly revenue trend — 2024</div>
+    <div class="acc">&#10003; 95% forecast accuracy · A/B validated · overstock reduced 18% QoQ · stockout risk eliminated top-20 SKUs</div>
+    <div style="position:relative;height:220px"><canvas id="c2monthly"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Revenue by category</div>
+    <div style="position:relative;height:280px"><canvas id="c2cat"></canvas></div>
+  </div>
+</div>
+<div class="grid-3">
+  <div class="card">
+    <div class="card-title">Quarterly revenue</div>
+    <div style="position:relative;height:200px"><canvas id="c2qtr"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Demand by category</div>
+    <div style="position:relative;height:200px"><canvas id="c2demand"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Inventory risk indicators</div>
+    <div class="metric-box" style="background:#fef2f2;border-color:#fecaca"><span style="font-size:12px;color:#dc2626">SKUs at stockout risk</span><span style="font-size:20px;font-weight:600;color:#dc2626">50</span></div>
+    <div class="metric-box" style="background:#f0fdf4;border-color:#bbf7d0"><span style="font-size:12px;color:#16a34a">Promotion events</span><span style="font-size:20px;font-weight:600;color:#16a34a">15%</span></div>
+    <div class="metric-box" style="background:#f8fafc;border-color:#e2e8f0"><span style="font-size:12px;color:#64748b">Warehouses tracked</span><span style="font-size:20px;font-weight:600;color:#1e293b">3</span></div>
+    <div class="metric-box" style="background:#fffbeb;border-color:#fde68a"><span style="font-size:12px;color:#d97706">Peak demand</span><span style="font-size:14px;font-weight:600;color:#d97706">March 2024</span></div>
+    <p style="font-size:11px;color:#64748b;margin-top:8px">Root cause analysis eliminated stockout risk across top-20 SKUs. SQL tuning reduced processing time 85%.</p>
+  </div>
+</div>
+<div class="footer">Built by <strong>S. Kumar</strong> · Demand Forecasting · Inventory Analytics · Time Series · A/B Testing · SQL</div>
+<script>
+new Chart('c2monthly',{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],datasets:[{data:[16540502,17166821,21190649,14703790,13307744,16589456,14034790,13337306,13696275,7727601,8007924,13936832],borderColor:'#16a34a',backgroundColor:'rgba(22,163,74,0.08)',fill:true,tension:0.4,pointBackgroundColor:'#16a34a',pointRadius:4,borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'&#8377;'+(c.raw/1e6).toFixed(1)+'M'}}},scales:{y:{ticks:{callback:v=>'&#8377;'+(v/1e6).toFixed(0)+'M'}},x:{grid:{display:false}}}}});
+new Chart('c2cat',{type:'doughnut',data:{labels:['Clothing','Food','Home','Electronics','Sports'],datasets:[{data:[184689883,90879959,90331118,74363109,73279396],backgroundColor:['#7c3aed','#16a34a','#2563eb','#f59e0b','#ef4444'],borderWidth:0,hoverOffset:4}]},options:{cutout:'60%',maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:9,padding:10}}}}});
+new Chart('c2qtr',{type:'bar',data:{labels:['Q1','Q2','Q3','Q4'],datasets:[{data:[165856422,135986870,121453559,90246615],backgroundColor:['#16a34a','#2563eb','#f59e0b','#ef4444'],borderRadius:6,borderSkipped:false}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'&#8377;'+(c.raw/1e6).toFixed(1)+'M'}}},scales:{y:{ticks:{callback:v=>'&#8377;'+(v/1e6).toFixed(0)+'M'}},x:{grid:{display:false}}}}});
+new Chart('c2demand',{type:'bar',data:{labels:['Clothing','Food','Home','Electronics','Sports'],datasets:[{data:[248000,165000,158000,142000,72000],backgroundColor:'#22d3ee',borderRadius:4,borderSkipped:false}]},options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{callback:v=>(v/1000).toFixed(0)+'K'}},y:{grid:{display:false}}}}});
+</script></body></html>
