@@ -1,4 +1,4 @@
-# Project 2 — Demand Forecasting & Inventory Optimisation
+# Project  — Demand Forecasting & Inventory Optimisation
 
 **Domain:** Retail | **Tools:** SQL · Python · Time Series · A/B Testing · Apache Airflow
 
